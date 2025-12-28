@@ -1,0 +1,87 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  transform: scale(0.9);
+  transition: transform var(--transition-normal);
+  text-align: center;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1);
+}
+
+.modal-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.modal-icon.success {
+  background: rgba(70, 211, 105, 0.1);
+  color: var(--accent-green);
+}
+
+.modal-icon.error {
+  background: rgba(229, 9, 20, 0.1);
+  color: var(--primary-color);
+}
+
+.modal-icon.warning {
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--accent-gold);
+}
+
+.modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.modal p {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.booking-id {
+  background: var(--bg-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  font-family: monospace;
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}

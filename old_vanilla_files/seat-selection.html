@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Select Your Seats - CineBook">
+    <title>Select Seats - CineBook</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Additional Seat Selection Styles */
+        .seat-page-header {
+            background: var(--bg-card);
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--bg-hover);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .seat-page-header .container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .header-movie-info {
+            flex: 1;
+        }
+        
+        .header-movie-info h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .header-movie-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .seat-main-content {
+            padding-bottom: 100px;
+        }
+        
+        @media (max-width: 992px) {
+            .booking-layout {
+                display: block;
+            }
+            
+            .seats-main {
+                margin-bottom: var(--spacing-xl);
+            }
+            
+            .booking-summary {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+                padding: var(--spacing-md);
+                z-index: 100;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            }
+            
+            .booking-summary .summary-header,
+            .booking-summary .summary-details {
+                display: none;
+            }
+            
+            .booking-summary .summary-seats {
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .mobile-summary-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .mobile-summary-row .seats-info {
+                font-size: 0.9rem;
+            }
+            
+            .mobile-summary-row .price {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--accent-gold);
+            }
+        }
+        
+        @media (min-width: 993px) {
+            .mobile-summary-row {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         Navigation Bar
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>CineBook</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#movies" class="nav-link">Movies</a></li>
+                <li><a href="#" class="nav-link">Theaters</a></li>
+                <li><a href="#" class="nav-link">My Bookings</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="nav-profile">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         Seat Selection Page
+         ============================================ -->
+    <section class="seat-selection-page">
+        <!-- Page Header with Movie Info -->
+        <div class="seat-page-header">
+            <div class="container">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="header-movie-info" id="headerMovieInfo">
+                    <h1>Loading...</h1>
+                    <p>Select your preferred seats</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="seat-main-content">
+                <div class="booking-layout">
+                    <!-- Main Seat Selection Area -->
+                    <div class="seats-main">
+                        <!-- Screen -->
+                        <div class="screen-container">
+                            <div class="screen"></div>
+                            <p class="screen-label">All eyes this way please!</p>
+                        </div>
+                        
+                        <!-- Seats Container -->
+                        <div class="seats-container" id="seatsContainer">
+                            <!-- Seats will be dynamically generated -->
+                        </div>
+                        
+                        <!-- Seat Legend -->
+                        <div class="seat-legend">
+                            <div class="legend-item">
+                                <div class="legend-box available"></div>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-box selected"></div>
+                                <span>Selected</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-box booked"></div>
+                                <span>Booked</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Booking Summary Sidebar -->
+                    <div class="booking-summary" id="bookingSummary">
+                        <div class="summary-header" id="summaryHeader">
+                            <!-- Movie poster and info will be loaded dynamically -->
+                        </div>
+                        
+                        <div class="summary-details" id="summaryDetails">
+                            <!-- Booking details will be loaded dynamically -->
+                        </div>
+                        
+                        <div class="mobile-summary-row" id="mobileSummary">
+                            <div class="seats-info">
+                                <span id="mobileSeatsCount">0</span> Seats Selected
+                            </div>
+                            <div class="price">₹<span id="mobileTotalPrice">0</span></div>
+                        </div>
+                        
+                        <div class="summary-seats" id="summarySeats">
+                            <div class="label">Selected Seats</div>
+                            <div class="seats-list" id="selectedSeatsList">
+                                <span style="color: var(--text-muted);">No seats selected</span>
+                            </div>
+                        </div>
+                        
+                        <div class="price-breakdown" id="priceBreakdown">
+                            <div class="price-row">
+                                <span>Tickets (<span id="ticketCount">0</span>)</span>
+                                <span>₹<span id="ticketPrice">0</span></span>
+                            </div>
+                            <div class="price-row">
+                                <span>Convenience Fee</span>
+                                <span>₹<span id="convenienceFee">0</span></span>
+                            </div>
+                            <div class="price-row total">
+                                <span>Total</span>
+                                <span>₹<span id="totalPrice">0</span></span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-proceed" id="proceedBtn" disabled onclick="proceedToPayment()">
+                            <i class="fas fa-arrow-right"></i> Proceed to Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Scripts
+         ============================================ -->
+    <script src="data/movies.js"></script>
+    <script src="js/seat-selection.js"></script>
+</body>
+</html>
