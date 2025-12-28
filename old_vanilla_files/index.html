@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineBook - Your Ultimate Movie Ticket Booking Experience">
+    <title>CineBook - Movie Ticket Booking</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         Navigation Bar
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>CineBook</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="#movies" class="nav-link">Movies</a></li>
+                <li><a href="#theaters" class="nav-link">Theaters</a></li>
+                <li><a href="#" class="nav-link">My Bookings</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="nav-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search movies..." id="searchInput">
+                </div>
+                <div class="nav-profile">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         Hero Section - Movie Slider
+         ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-slider" id="heroSlider">
+            <!-- Slides will be dynamically generated -->
+        </div>
+        <div class="hero-indicators" id="heroIndicators">
+            <!-- Indicators will be dynamically generated -->
+        </div>
+    </section>
+
+    <!-- ============================================
+         Now Showing Section
+         ============================================ -->
+    <section class="section" id="movies">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-fire"></i>
+                    Now Showing
+                </h2>
+                <a href="#" class="view-all">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>Language</label>
+                    <select id="languageFilter">
+                        <option value="All">All Languages</option>
+                        <option value="English">English</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Telugu">Telugu</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Genre</label>
+                    <select id="genreFilter">
+                        <option value="All">All Genres</option>
+                        <option value="Action">Action</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Crime">Crime</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option value="Thriller">Thriller</option>
+                    </select>
+                </div>
+                <div class="filter-chips">
+                    <span class="chip active" data-genre="All">All</span>
+                    <span class="chip" data-genre="Action">Action</span>
+                    <span class="chip" data-genre="Sci-Fi">Sci-Fi</span>
+                    <span class="chip" data-genre="Drama">Drama</span>
+                    <span class="chip" data-genre="Comedy">Comedy</span>
+                    <span class="chip" data-genre="Thriller">Thriller</span>
+                </div>
+            </div>
+            
+            <!-- Movies Grid -->
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Movie cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Coming Soon Section
+         ============================================ -->
+    <section class="section" id="comingSoon">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    Coming Soon
+                </h2>
+                <a href="#" class="view-all">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            
+            <div class="movies-grid" id="comingSoonGrid">
+                <!-- Coming soon movies will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Theaters Section
+         ============================================ -->
+    <section class="section" id="theaters" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-building"></i>
+                    Popular Theaters Near You
+                </h2>
+            </div>
+            
+            <div class="theater-list" id="theaterList">
+                <!-- Theaters will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Footer
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-film"></i>
+                        <span>CineBook</span>
+                    </div>
+                    <p class="footer-description">
+                        Your ultimate destination for booking movie tickets. Experience the magic of cinema with the best seats at the best prices.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#">About Us</a>
+                        <a href="#">Contact</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Movies</h4>
+                    <div class="footer-links">
+                        <a href="#">Now Showing</a>
+                        <a href="#">Coming Soon</a>
+                        <a href="#">Premieres</a>
+                        <a href="#">Top Rated</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Help & Support</h4>
+                    <div class="footer-links">
+                        <a href="#">Customer Care</a>
+                        <a href="#">Refund Policy</a>
+                        <a href="#">Gift Cards</a>
+                        <a href="#">Corporate Booking</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CineBook. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for movie lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         Scripts
+         ============================================ -->
+    <script src="data/movies.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

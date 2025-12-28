@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Movie Details - CineBook">
+    <title>Movie Details - CineBook</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Additional Movie Details Styles */
+        .cast-section {
+            margin-top: var(--spacing-xl);
+        }
+        
+        .cast-list {
+            display: flex;
+            gap: var(--spacing-lg);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-md);
+        }
+        
+        .cast-item {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .cast-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-sm);
+            font-size: 2rem;
+            color: var(--text-muted);
+        }
+        
+        .cast-name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 80px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .movie-actions-large {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .rating-large {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            background: rgba(255, 215, 0, 0.1);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .rating-large i {
+            color: var(--accent-gold);
+            font-size: 1.25rem;
+        }
+        
+        .rating-large .score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        .rating-large .max {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         Navigation Bar
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>CineBook</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#movies" class="nav-link">Movies</a></li>
+                <li><a href="#theaters-section" class="nav-link">Theaters</a></li>
+                <li><a href="#" class="nav-link">My Bookings</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="nav-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search movies..." id="searchInput">
+                </div>
+                <div class="nav-profile">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         Movie Banner Section
+         ============================================ -->
+    <section class="movie-details-page">
+        <div class="movie-banner" id="movieBanner">
+            <div class="movie-banner-bg" id="bannerBg"></div>
+            <div class="hero-gradient"></div>
+            <div class="movie-banner-content">
+                <div class="container">
+                    <div class="movie-banner-inner">
+                        <div class="movie-poster-large" id="moviePoster">
+                            <!-- Poster will be dynamically loaded -->
+                        </div>
+                        <div class="movie-details-info" id="movieInfo">
+                            <!-- Movie info will be dynamically loaded -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Theaters & Showtimes Section
+         ============================================ -->
+    <section class="theaters-section" id="theaters-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Select Date & Showtime
+                </h2>
+            </div>
+            
+            <!-- Date Selector -->
+            <div class="date-selector" id="dateSelector">
+                <!-- Dates will be dynamically generated -->
+            </div>
+            
+            <!-- Theater List with Showtimes -->
+            <div class="theater-list" id="theaterShowtimes">
+                <!-- Theaters and showtimes will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Footer
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-film"></i>
+                        <span>CineBook</span>
+                    </div>
+                    <p class="footer-description">
+                        Your ultimate destination for booking movie tickets. Experience the magic of cinema with the best seats at the best prices.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#">About Us</a>
+                        <a href="#">Contact</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Movies</h4>
+                    <div class="footer-links">
+                        <a href="#">Now Showing</a>
+                        <a href="#">Coming Soon</a>
+                        <a href="#">Premieres</a>
+                        <a href="#">Top Rated</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Help & Support</h4>
+                    <div class="footer-links">
+                        <a href="#">Customer Care</a>
+                        <a href="#">Refund Policy</a>
+                        <a href="#">Gift Cards</a>
+                        <a href="#">Corporate Booking</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CineBook. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for movie lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         Scripts
+         ============================================ -->
+    <script src="data/movies.js"></script>
+    <script src="js/movie-details.js"></script>
+</body>
+</html>

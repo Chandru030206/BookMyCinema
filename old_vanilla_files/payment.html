@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Payment - CineBook">
+    <title>Payment - CineBook</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Additional Payment Page Styles */
+        .payment-header {
+            background: var(--bg-card);
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--bg-hover);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .payment-header .container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .payment-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .timer {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .timer i {
+            animation: pulse 1s infinite;
+        }
+        
+        .payment-content {
+            padding-bottom: var(--spacing-xxl);
+        }
+        
+        .order-summary-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            position: sticky;
+            top: 90px;
+        }
+        
+        .order-movie {
+            display: flex;
+            gap: var(--spacing-md);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--bg-hover);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .order-poster {
+            width: 80px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .order-poster img {
+            width: 100%;
+        }
+        
+        .order-details h3 {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .order-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .order-info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            font-size: 0.9rem;
+        }
+        
+        .order-info-row .label {
+            color: var(--text-muted);
+        }
+        
+        .order-seats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+        
+        .order-seat-tag {
+            padding: 2px 8px;
+            background: var(--primary-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+            border-top: 1px dashed var(--bg-hover);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .order-total .amount {
+            color: var(--accent-gold);
+        }
+        
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: rgba(70, 211, 105, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--accent-green);
+            font-size: 0.85rem;
+        }
+        
+        /* Card Input Formatting */
+        .card-input-wrapper {
+            position: relative;
+        }
+        
+        .card-input-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.25rem;
+        }
+        
+        .card-brands {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .card-brands i {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+        
+        /* Payment Content for Card form */
+        .payment-content-area {
+            min-height: 300px;
+        }
+        
+        #cardForm, #upiForm, #walletForm {
+            display: none;
+        }
+        
+        #cardForm.active, #upiForm.active, #walletForm.active {
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .payment-container {
+                display: block;
+            }
+            
+            .order-summary-card {
+                position: static;
+                margin-bottom: var(--spacing-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         Navigation Bar
+         ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>CineBook</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#movies" class="nav-link">Movies</a></li>
+                <li><a href="#" class="nav-link">Theaters</a></li>
+                <li><a href="#" class="nav-link">My Bookings</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="nav-profile">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         Payment Page
+         ============================================ -->
+    <section class="payment-page">
+        <!-- Page Header -->
+        <div class="payment-header">
+            <div class="container">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="payment-title">Complete Payment</h1>
+                <div class="timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="countdown">10:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="payment-content">
+                <div class="payment-container">
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <h2>Choose Payment Method</h2>
+                        
+                        <!-- Payment Tabs -->
+                        <div class="payment-tabs">
+                            <button class="payment-tab active" data-tab="card" onclick="switchPaymentTab('card')">
+                                <i class="fas fa-credit-card"></i>
+                                Credit/Debit Card
+                            </button>
+                            <button class="payment-tab" data-tab="upi" onclick="switchPaymentTab('upi')">
+                                <i class="fas fa-mobile-alt"></i>
+                                UPI
+                            </button>
+                            <button class="payment-tab" data-tab="wallet" onclick="switchPaymentTab('wallet')">
+                                <i class="fas fa-wallet"></i>
+                                Wallet
+                            </button>
+                        </div>
+                        
+                        <!-- Payment Content Area -->
+                        <div class="payment-content-area">
+                            <!-- Card Form -->
+                            <div id="cardForm" class="payment-form active">
+                                <div class="form-group">
+                                    <label>Card Number</label>
+                                    <div class="card-input-wrapper">
+                                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                        <i class="fab fa-cc-visa"></i>
+                                    </div>
+                                    <div class="card-brands">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <i class="fab fa-cc-mastercard"></i>
+                                        <i class="fab fa-cc-amex"></i>
+                                        <i class="fab fa-cc-discover"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Cardholder Name</label>
+                                    <input type="text" id="cardName" placeholder="John Doe">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Expiry Date</label>
+                                        <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CVV</label>
+                                        <input type="password" id="cvv" placeholder="•••" maxlength="4">
+                                    </div>
+                                </div>
+                                
+                                <button class="btn-pay" onclick="processPayment()">
+                                    <i class="fas fa-lock"></i> Pay ₹<span id="payAmount1">0</span>
+                                </button>
+                            </div>
+                            
+                            <!-- UPI Form -->
+                            <div id="upiForm" class="payment-form">
+                                <div class="upi-options">
+                                    <div class="upi-option" onclick="selectUPI(this, 'gpay')">
+                                        <i class="fab fa-google-pay"></i>
+                                        <span>Google Pay</span>
+                                    </div>
+                                    <div class="upi-option" onclick="selectUPI(this, 'phonepe')">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>PhonePe</span>
+                                    </div>
+                                    <div class="upi-option" onclick="selectUPI(this, 'paytm')">
+                                        <i class="fas fa-wallet"></i>
+                                        <span>Paytm</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-top: var(--spacing-lg);">
+                                    <label>Or Enter UPI ID</label>
+                                    <input type="text" id="upiId" placeholder="username@upi">
+                                </div>
+                                
+                                <button class="btn-pay" onclick="processPayment()">
+                                    <i class="fas fa-lock"></i> Pay ₹<span id="payAmount2">0</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Wallet Form -->
+                            <div id="walletForm" class="payment-form">
+                                <div class="wallet-options">
+                                    <div class="wallet-option" onclick="selectWallet(this, 'paytm')">
+                                        <i class="fas fa-wallet"></i>
+                                        <div class="wallet-info">
+                                            <div class="name">Paytm Wallet</div>
+                                            <div class="balance">Balance: ₹2,500</div>
+                                        </div>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                    <div class="wallet-option" onclick="selectWallet(this, 'amazon')">
+                                        <i class="fab fa-amazon"></i>
+                                        <div class="wallet-info">
+                                            <div class="name">Amazon Pay</div>
+                                            <div class="balance">Balance: ₹1,800</div>
+                                        </div>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                    <div class="wallet-option" onclick="selectWallet(this, 'mobikwik')">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <div class="wallet-info">
+                                            <div class="name">MobiKwik</div>
+                                            <div class="balance">Balance: ₹950</div>
+                                        </div>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn-pay" onclick="processPayment()">
+                                    <i class="fas fa-lock"></i> Pay ₹<span id="payAmount3">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="order-summary-card">
+                        <h3 style="margin-bottom: var(--spacing-lg);">Order Summary</h3>
+                        
+                        <div class="order-movie" id="orderMovie">
+                            <!-- Movie details will be loaded dynamically -->
+                        </div>
+                        
+                        <div class="order-info">
+                            <div class="order-info-row">
+                                <span class="label">Theater</span>
+                                <span id="orderTheater">-</span>
+                            </div>
+                            <div class="order-info-row">
+                                <span class="label">Date & Time</span>
+                                <span id="orderDateTime">-</span>
+                            </div>
+                            <div class="order-info-row">
+                                <span class="label">Seats</span>
+                                <div class="order-seats" id="orderSeats">
+                                    <!-- Seats will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-info-row">
+                            <span class="label">Tickets</span>
+                            <span>₹<span id="orderTicketPrice">0</span></span>
+                        </div>
+                        <div class="order-info-row">
+                            <span class="label">Convenience Fee</span>
+                            <span>₹<span id="orderFee">0</span></span>
+                        </div>
+                        
+                        <div class="order-total">
+                            <span>Total Amount</span>
+                            <span class="amount">₹<span id="orderTotal">0</span></span>
+                        </div>
+                        
+                        <div class="secure-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Payment - 256-bit SSL Encrypted</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Confirmation Modal
+         ============================================ -->
+    <div class="modal-overlay" id="confirmationModal">
+        <div class="modal">
+            <div class="modal-icon success">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your tickets have been booked successfully. Please check your email for the e-tickets.</p>
+            
+            <div class="booking-id">
+                Booking ID: <span id="bookingIdDisplay">CBK-XXXXXX</span>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="downloadTicket()">
+                    <i class="fas fa-download"></i> Download Ticket
+                </button>
+                <button class="btn btn-primary" onclick="goToHome()">
+                    <i class="fas fa-home"></i> Go Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         Scripts
+         ============================================ -->
+    <script src="data/movies.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>
